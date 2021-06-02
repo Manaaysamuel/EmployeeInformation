@@ -13,6 +13,7 @@ export class EmployeeComponent implements OnInit {
 
   ngOnInit(): void {
     this.employeeForm = this.fb.group({
+      id:'',
       name: '',
       lastname:'',
       birthdate:'',
@@ -21,8 +22,19 @@ export class EmployeeComponent implements OnInit {
     // this.employeeForm.valueChanges.subscribe(console.log)
   }
   submit(){
-    console.log(this.employeeForm?.value)
-    window.localStorage.setItem("employee-list",JSON.stringify(this.employeeForm?.value));
+    var new_data = (this.employeeForm?.value);
+    console.log(new_data);
+    console.log(JSON.stringify(this.employeeForm?.value));
+    if(localStorage.getItem('data') == null){
+      localStorage.setItem('data','[]');
+    }
+    var old_data = JSON.parse(localStorage.getItem('data') || '{}');
+    console.log(old_data);
+    
+    old_data.push(new_data);
+    localStorage.setItem('data',JSON.stringify(old_data));
+
+  //  window.localStorage.setItem("employee-list",JSON.stringify(this.employeeForm?.value));
   }
   
   
